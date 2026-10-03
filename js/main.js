@@ -36,7 +36,9 @@ function validateForm() {
     // Kontrollera formulärets obligatoriska fält
     for (let inputField of [fullnameInput, emailInput, phoneInput]) {
         if (inputField.value.trim() === "") {
-            errors.push(`Fältet ${inputField.name} är obligatoriskt.`);
+            
+            
+            errors.push(`Fältet ${inputField.labels[0].textContent} är obligatoriskt.`);
         };
     };
     // Visa eventuella felmeddelanden
