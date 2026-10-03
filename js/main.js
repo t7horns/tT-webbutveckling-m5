@@ -34,11 +34,15 @@ let history = [];
  */
 function validateForm() {
     // Kontrollera formulärets obligatoriska fält
-
+    for (let inputField of [fullnameInput, emailInput, phoneInput]) {
+        if (inputField.value.trim() === "") {
+            errors.push(`Fältet ${inputField.name} är obligatoriskt.`);
+        };
+    };
     // Visa eventuella felmeddelanden
-
+    displayErrors();
     // Returnera resultatet (true eller false) av valideringen
-}
+};
 
 
 /**
@@ -48,8 +52,16 @@ function displayErrors() {
     // Rensa tidigare felmeddelanden
 
     // Skriv ut aktuella felmeddelanden till DOM
-}
+    for (let error of errors) {
+        let errorListObject = document.createElement("li");
+        let errorText = document.createTextNode(error);
+        errorListObject.appendChild(errorText);
 
+        errorList.appendChild(errorListObject);
+    }
+
+
+};
 
 /**
  * Skapar ett studentkort och visar det på sidan.
@@ -116,6 +128,11 @@ function deleteHistory() {
 // Eventlyssnare
 
 // När formuläret skickas:
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    validateForm();
+});
+
 // - validera inmatningen
 // - skapa studentkort om valideringen lyckas
 
