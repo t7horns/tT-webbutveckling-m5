@@ -126,7 +126,7 @@ function renderHistory() {
 function clearForm() {
     // Återställ formulär och studentkort
     form.reset();
-    console.log("form has been reset at success")
+    console.log("form has been reset using fucntion clearForm")
     // Rensa eventuella felmeddelanden
     errorList.innerHTML = "";
 }
@@ -162,7 +162,12 @@ form.addEventListener("submit", function(event) {
 
 
 // När användaren klickar på "Rensa"
+clearButton.addEventListener("click", function(event) {
+    console.log("CLEAR BUTTON TRIGGERED")
+    event.preventDefault();
+    clearForm();
 
+});
 
 // När användaren klickar på "Radera historik"
 
