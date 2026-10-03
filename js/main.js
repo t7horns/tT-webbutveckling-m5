@@ -82,18 +82,29 @@ function displayErrors() {
  * Skapar ett studentkort och visar det på sidan.
  */
 function createStudentCard() {
-    // Hämta information från formuläret
-    previewFullname.textContent = fullnameInput.value;
-    previewEmail.textContent = emailInput.value;
-    previewPhone.textContent = phoneInput.value;
-    }
+    // Hämta information från formuläret och spara i ett objekt
+    const studentProfile = {
+        fullname: fullnameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        font: fontSelect.value
+    };
+    
 
     // Uppdatera studentkortet
+     
+    previewFullname.textContent = studentProfile.fullname;
+    previewEmail.textContent = studentProfile.email;
+    previewPhone.textContent = studentProfile.phone;
+
 
     // Lägg till studentkortet i historiken
-
+    history.push(studentProfile);
+    // TEMP check
+    for (let profile of history){ console.log(profile)}
     // Spara och uppdatera historiken
-
+    saveHistory();
+}
 
 
 /**
