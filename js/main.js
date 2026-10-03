@@ -33,14 +33,21 @@ let history = [];
  * @returns {boolean}
  */
 function validateForm() {
+    // Töm errors listan innan ny validering
+    errors = [];
     // Kontrollera formulärets obligatoriska fält
     for (let inputField of [fullnameInput, emailInput, phoneInput]) {
         if (inputField.value.trim() === "") {
-            
-            
             errors.push(`Fältet ${inputField.labels[0].textContent} är obligatoriskt.`);
         };
     };
+    // Validera för korrekt inmatning av telefonnummer
+    // Definiera tillåtet mönster först (enbart siffror, bindesstreck och mellanslag)
+    const allowedNumberPattern = /^[0-9\s-]+$/;
+    // Om värdet inte matchar mönstret, skapa felmeddelande
+    if (!phoneInput.value.trim() == "" && !allowedNumberPattern.test(phoneInput.value)) {
+        errors.push("Telefonnummer får enbart bestå av siffror, mellanslag eller bindestreck.");
+    }
     // Visa eventuella felmeddelanden
     displayErrors();
     // Returnera resultatet (true eller false) av valideringen
@@ -52,7 +59,7 @@ function validateForm() {
  */
 function displayErrors() {
     // Rensa tidigare felmeddelanden
-
+    errorList.innerHTML = "";
     // Skriv ut aktuella felmeddelanden till DOM
     for (let error of errors) {
         let errorListObject = document.createElement("li");
@@ -61,7 +68,6 @@ function displayErrors() {
 
         errorList.appendChild(errorListObject);
     }
-
 
 };
 
