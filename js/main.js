@@ -125,7 +125,8 @@ function renderHistory() {
  */
 function clearForm() {
     // Återställ formulär och studentkort
-
+    form.reset();
+    console.log("form has been reset at success")
     // Rensa eventuella felmeddelanden
     errorList.innerHTML = "";
 }
@@ -150,8 +151,8 @@ form.addEventListener("submit", function(event) {
     event.preventDefault();
     let validInput = validateForm();
     if (validInput === true ){
-        clearForm();
         console.log("INGA VALIDERINGSFEL - SKAPA STUDENTKORT")
+        clearForm();
         // kör createStudentCard()
     }
 
