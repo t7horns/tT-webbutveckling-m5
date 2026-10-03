@@ -48,9 +48,16 @@ function validateForm() {
     if (!phoneInput.value.trim() == "" && !allowedNumberPattern.test(phoneInput.value)) {
         errors.push("Telefonnummer får enbart bestå av siffror, mellanslag eller bindestreck.");
     }
-    // Visa eventuella felmeddelanden
-    displayErrors();
-    // Returnera resultatet (true eller false) av valideringen
+
+    // Om valideringsfel finns, presentera och returnera false
+    if (errors.length !== 0) {
+        displayErrors();
+        return false;
+    }
+    // Annars returnera true
+    else {
+        return true;
+    }
 };
 
 
@@ -120,6 +127,7 @@ function clearForm() {
     // Återställ formulär och studentkort
 
     // Rensa eventuella felmeddelanden
+    errorList.innerHTML = "";
 }
 
 
@@ -136,13 +144,20 @@ function deleteHistory() {
 // Eventlyssnare
 
 // När formuläret skickas:
-form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    validateForm();
-});
-
 // - validera inmatningen
 // - skapa studentkort om valideringen lyckas
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let validInput = validateForm();
+    if (validInput === true ){
+        clearForm();
+        console.log("INGA VALIDERINGSFEL - SKAPA STUDENTKORT")
+        // kör createStudentCard()
+    }
+
+});
+
+
 
 
 // När användaren klickar på "Rensa"
