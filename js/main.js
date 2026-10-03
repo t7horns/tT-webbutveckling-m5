@@ -83,13 +83,17 @@ function displayErrors() {
  */
 function createStudentCard() {
     // Hämta information från formuläret
+    previewFullname.textContent = fullnameInput.value;
+    previewEmail.textContent = emailInput.value;
+    previewPhone.textContent = phoneInput.value;
+    }
 
     // Uppdatera studentkortet
 
     // Lägg till studentkortet i historiken
 
     // Spara och uppdatera historiken
-}
+
 
 
 /**
@@ -152,10 +156,9 @@ form.addEventListener("submit", function(event) {
     let validInput = validateForm();
     if (validInput === true ){
         console.log("INGA VALIDERINGSFEL - SKAPA STUDENTKORT")
+        createStudentCard();
         clearForm();
-        // kör createStudentCard()
     }
-
 });
 
 
