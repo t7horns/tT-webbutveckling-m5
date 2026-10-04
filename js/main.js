@@ -102,7 +102,7 @@ function createStudentCard() {
     previewCard.style.fontFamily = studentProfile.font;
     
     // Lägg till studentkortet i historiken
-    history.push(studentProfile);
+    history.unshift(studentProfile);
     // TEMP check
     for (let profile of history){ console.log(profile)}
     // Spara och uppdatera historiken
