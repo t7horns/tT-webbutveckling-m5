@@ -121,24 +121,29 @@ function saveHistory() {
 
 
 /**
- * Läser in tidigare historik från localStorage.
+ * Läser in tidigare historik från localStorage om alla valideringar avklarats. 
  */
 function loadHistory() {
     // Hämta eventuell sparad historik
     const unparsedLoadedHistory = localStorage.getItem("historyStorage");
-    if (unparsedLoadedHistory) {
-        const loadedHistory = JSON.parse(unparsedLoadedHistory);
-        if (loadedHistory) {
-            if (JSON.stringify(history) !== JSON.stringify(loadedHistory)) {
-                history = loadedHistory;
-                console.log("History updated from storage");
-            }
-        }
+
+    // Om localstorage saknar historik, avrbyt
+    if (!unparsedLoadedHistory) {
+        console.log("Tried updating history from localstorage, but it was empty")
+        return;
     }
 
-    // Uppdatera history array on den inte redan har samma värden
+    const loadedHistory = JSON.parse(unparsedLoadedHistory);
 
-    console.log("array history efter sync: ", history)
+    // Om innehållet är samma som i aktiv variabel, avbryt
+    if (JSON.stringify(history) === JSON.stringify(loadedHistory)) {
+        console.log("Loaded history same as active session history");
+        return;
+    }
+
+    // Localstorage har ny data, ladda in den:
+    history = loadedHistory;
+    console.log("History updated from storage");
 }
 
 
