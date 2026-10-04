@@ -152,6 +152,7 @@ function renderHistory() {
  * Rensar formulär, aktuellt studentkort och felmeddelanden.
  */
 function clearForm() {
+    console.log("CLEAR BUTTON TRIGGERED")
     // Återställ formulär och studentkort
     form.reset();
     console.log("form has been reset using fucntion clearForm")
@@ -164,6 +165,7 @@ function clearForm() {
  * Raderar hela historiken.
  */
 function deleteHistory() {
+    console.log("CLEAR HISTORY TRIGGERED")
     // Radera sparad historik
 
     // Uppdatera history och visningen på sidan
@@ -190,14 +192,12 @@ form.addEventListener("submit", function(event) {
 
 // När användaren klickar på "Rensa"
 clearButton.addEventListener("click", function(event) {
-    console.log("CLEAR BUTTON TRIGGERED")
     event.preventDefault();
     clearForm();
 });
 
 // När användaren klickar på "Radera historik"
 deleteHistoryButton.addEventListener("click", function(event) {
-    console.log("CLEAR HISTORY TRIGGERED")
     event.preventDefault();
     deleteHistory()
 });
