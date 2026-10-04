@@ -58,6 +58,8 @@ function validateForm() {
     }
     // Annars returnera true
     else {
+        // Rensa alla bindesstreck och mellanslag i telefonnumret
+        phoneInput.value = phoneInput.value.replace(/[\s-]/g, "");
         return true;
     }
 };
