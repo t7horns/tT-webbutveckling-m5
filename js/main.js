@@ -144,6 +144,7 @@ function renderHistory() {
     // Rensa tidigare visad historik
 
     // Skriv ut innehållet i history till DOM
+
 }
 
 
@@ -195,7 +196,13 @@ clearButton.addEventListener("click", function(event) {
 });
 
 // När användaren klickar på "Radera historik"
+deleteHistoryButton.addEventListener("click", function(event) {
+    console.log("CLEAR HISTORY TRIGGERED")
+    event.preventDefault();
+    deleteHistory()
+});
 
 
 // När sidan laddas:
 // - läs in och visa eventuell tidigare historik
+loadHistory()
