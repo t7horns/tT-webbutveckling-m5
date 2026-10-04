@@ -125,10 +125,15 @@ function saveHistory() {
 function loadHistory() {
     // Hämta eventuell sparad historik
     const loadedHistory = JSON.parse(localStorage.getItem("historyStorage"));
+
     // Uppdatera history array on den inte redan har samma värden
-    if (history != loadedHistory) {
-        history = loadedHistory;
+    if (loadedHistory) {
+        if (JSON.stringify(history) !== JSON.stringify(loadedHistory)) {
+            history = loadedHistory;
+            console.log("History updated from storage");
+        }
     }
+    console.log("array history efter sync: ", history)
 }
 
 
@@ -187,7 +192,6 @@ clearButton.addEventListener("click", function(event) {
     console.log("CLEAR BUTTON TRIGGERED")
     event.preventDefault();
     clearForm();
-
 });
 
 // När användaren klickar på "Radera historik"
