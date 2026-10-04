@@ -1,10 +1,11 @@
 "use strict";
 /*
  * Laboration 5 - Studentkortsgenerator
- * Namn: DITT NAMN
+ * Namn: Mathias Thorgren
  */
 
-// Hämta element från DOM
+// -Hämta element från DOM- //
+
 const form = document.querySelector("#studentform");
 const clearButton = document.querySelector("#clear");
 
@@ -13,7 +14,7 @@ const emailInput = document.querySelector("#email");
 const phoneInput = document.querySelector("#phone");
 const fontSelect = document.querySelector("#font");
 
-const previewCard = document.querySelector("#preview .card"); // Store path to card class
+const previewCard = document.querySelector("#preview .card"); // Spara plats till css stilfunktion för preview card
 const previewFullname = document.querySelector("#previewfullname");
 const previewEmail = document.querySelector("#previewemail");
 const previewPhone = document.querySelector("#previewphone");
@@ -30,12 +31,14 @@ let errors = [];
 // Array som innehåller sparade studentkort
 let history = [];
 
+// -Funktioner- //
+
 /**
  * Validerar formulärets inmatning.
  * @returns {boolean}
  */
 function validateForm() {
-    // Töm errors listan innan ny validering
+    // Töm errors-listan innan ny validering
     errors = [];
     // Kontrollera formulärets obligatoriska fält
     for (let inputField of [fullnameInput, emailInput, phoneInput]) {
@@ -48,7 +51,7 @@ function validateForm() {
     const allowedNumberPattern = /^[0-9\s-]+$/;
     // Om värdet inte matchar mönstret, skapa felmeddelande
     if (!phoneInput.value.trim() == "" && !allowedNumberPattern.test(phoneInput.value)) {
-        errors.push("Telefonnummer får enbart bestå av siffror, mellanslag eller bindestreck.");
+        errors.push("Telefonnummer får enbart bestå av siffror, mellanslag och bindestreck.");
     }
 
     // Om valideringsfel finns, presentera och returnera false
@@ -96,17 +99,14 @@ function createStudentCard() {
     
 
     // Uppdatera studentkortet
-     
     previewFullname.textContent = studentProfile.fullname;
     previewEmail.textContent = studentProfile.email;
     previewPhone.textContent = studentProfile.phone;
-
     previewCard.style.fontFamily = studentProfile.font;
     
     // Lägg till studentkortet i historiken
     history.unshift(studentProfile);
-    // TEMP check
-    for (let profile of history){ console.log(profile)}
+    
     // Spara och uppdatera historiken
     saveHistory();
     renderHistory()
@@ -117,7 +117,6 @@ function createStudentCard() {
  * Sparar historiken i localStorage.
  */
 function saveHistory() {
-    // Spara history i localStorage
     localStorage.setItem("historyStorage", JSON.stringify(history));
 }
 
@@ -131,7 +130,6 @@ function loadHistory() {
 
     // Om localstorage saknar historik, avrbyt
     if (!unparsedLoadedHistory) {
-        console.log("Tried updating history from localstorage, but it was empty")
         return;
     }
 
@@ -139,13 +137,11 @@ function loadHistory() {
 
     // Om innehållet är samma som i aktiv variabel, avbryt
     if (JSON.stringify(history) === JSON.stringify(loadedHistory)) {
-        console.log("Loaded history same as active session history");
         return;
     }
 
     // Localstorage har ny data, ladda in den:
     history = loadedHistory;
-    console.log("History updated from storage");
 }
 
 
@@ -155,13 +151,13 @@ function loadHistory() {
 function renderHistory() {
     // Rensa tidigare visad historik
     historySection.innerHTML = "";
-    // Skriv ut innehållet i history till DOM
 
+    // Skriv ut innehållet i history till DOM
     for (let profil of history) {
         // Varje nytt history-kort blir ett nytt p-element via DOM
         let newHistoryCard = document.createElement("p");
 
-        // Stil via DOM för att skapa boxar till varje history-kort
+        // Stil via DOM för att skapa boxar/kort till varje history-kort
         newHistoryCard.style.width = "50%";
         newHistoryCard.style.padding = "1em 1em";
         newHistoryCard.style.maxWidth = "350px";
@@ -169,11 +165,11 @@ function renderHistory() {
         newHistoryCard.style.border = "2px solid #ddd";
 
         for (let [profileKey, value] of Object.entries(profil)) {
-            // Loopa genom varje key-value par i sparade profiler
+            // Loopa genom varje key-value-par i sparade profiler
             // Skapa textnod med bl.a. fullname med värdet för fullname
             let textNode = document.createTextNode(profileKey + ": " + value);
             
-            // Läggs till i history-kortet
+            // Textnoden och linebreak läggs till i history-kortet
             newHistoryCard.appendChild(textNode);
             newHistoryCard.appendChild(document.createElement("br"));
         }
@@ -183,16 +179,12 @@ function renderHistory() {
 
 }
 
-
-
 /**
  * Rensar formulär, aktuellt studentkort och felmeddelanden.
  */
 function clearForm() {
-    console.log("CLEAR BUTTON TRIGGERED")
     // Återställ formulär och studentkort
     form.reset();
-    console.log("form has been reset using fucntion clearForm")
     // Rensa eventuella felmeddelanden
     errorList.innerHTML = "";
 }
@@ -202,7 +194,6 @@ function clearForm() {
  * Raderar hela historiken.
  */
 function deleteHistory() {
-    console.log("CLEAR HISTORY TRIGGERED")
     // Radera sparad historik i localstorage och i lokal array
     localStorage.setItem("historyStorage", "");
     history.length = 0;
@@ -211,24 +202,19 @@ function deleteHistory() {
     renderHistory();
 }
 
+// -Eventlyssnare- // 
 
-// Eventlyssnare
-
-// När formuläret skickas:
-// - validera inmatningen
-// - skapa studentkort om valideringen lyckas
+// När användaren klickar på "Generera studentkort":
 form.addEventListener("submit", function(event) {
     event.preventDefault();
+    // - validera inmatningen
     let validInput = validateForm();
     if (validInput === true ){
-        console.log("INGA VALIDERINGSFEL - SKAPA STUDENTKORT")
+        // - skapa studentkort om valideringen lyckas
         createStudentCard();
         clearForm();
     }
 });
-
-
-
 
 // När användaren klickar på "Rensa"
 clearButton.addEventListener("click", function(event) {
@@ -243,7 +229,8 @@ deleteHistoryButton.addEventListener("click", function(event) {
 });
 
 
-// När sidan laddas:
+// -När sidan laddas- //
+
 // - läs in och visa eventuell tidigare historik
 loadHistory()
 renderHistory()
