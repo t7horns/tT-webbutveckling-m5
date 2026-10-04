@@ -13,9 +13,11 @@ const emailInput = document.querySelector("#email");
 const phoneInput = document.querySelector("#phone");
 const fontSelect = document.querySelector("#font");
 
+const previewCard = document.querySelector("#preview .card"); // Store path to card class
 const previewFullname = document.querySelector("#previewfullname");
 const previewEmail = document.querySelector("#previewemail");
 const previewPhone = document.querySelector("#previewphone");
+
 
 const errorList = document.querySelector("#errorlist");
 const historySection = document.querySelector("#history");
@@ -97,7 +99,8 @@ function createStudentCard() {
     previewEmail.textContent = studentProfile.email;
     previewPhone.textContent = studentProfile.phone;
 
-
+    previewCard.style.fontFamily = studentProfile.font;
+    
     // Lägg till studentkortet i historiken
     history.push(studentProfile);
     // TEMP check
