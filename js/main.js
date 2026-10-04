@@ -125,17 +125,19 @@ function saveHistory() {
  */
 function loadHistory() {
     // Hämta eventuell sparad historik
-    const loadedHistory = JSON.parse(localStorage.getItem("historyStorage"));
-    if (!loadedHistory) {
-        return;
-    }
-    // Uppdatera history array on den inte redan har samma värden
-    if (loadedHistory) {
-        if (JSON.stringify(history) !== JSON.stringify(loadedHistory)) {
-            history = loadedHistory;
-            console.log("History updated from storage");
+    const unparsedLoadedHistory = localStorage.getItem("historyStorage");
+    if (unparsedLoadedHistory) {
+        const loadedHistory = JSON.parse(unparsedLoadedHistory);
+        if (loadedHistory) {
+            if (JSON.stringify(history) !== JSON.stringify(loadedHistory)) {
+                history = loadedHistory;
+                console.log("History updated from storage");
+            }
         }
     }
+
+    // Uppdatera history array on den inte redan har samma värden
+
     console.log("array history efter sync: ", history)
 }
 
