@@ -107,6 +107,7 @@ function createStudentCard() {
     for (let profile of history){ console.log(profile)}
     // Spara och uppdatera historiken
     saveHistory();
+    renderHistory()
 }
 
 
@@ -142,20 +143,32 @@ function loadHistory() {
  */
 function renderHistory() {
     // Rensa tidigare visad historik
-
+    historySection.innerHTML = "";
     // Skriv ut innehållet i history till DOM
 
 
     for (let profil of history) {
+        
         let newHistoryCard = document.createElement("p");
 
-        let profileText = document.createTextNode(JSON.stringify(profil));
-
-        newHistoryCard.appendChild(profileText);
+        for (let [profileKey, value] of Object.entries(profil)) {
+            let textNode = document.createTextNode(profileKey + ": " + value);
+            newHistoryCard.appendChild(textNode);
+        }
         
         historySection.appendChild(newHistoryCard);
     }
+    
+
+
+        /*
+        let profileText = document.createTextNode(JSON.stringify(profil));
+
+        newHistoryCard.appendChild(profileText);
+
+        historySection.appendChild(newHistoryCard); */
 }
+
 
 
 /**
