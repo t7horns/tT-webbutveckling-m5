@@ -126,7 +126,9 @@ function saveHistory() {
 function loadHistory() {
     // Hämta eventuell sparad historik
     const loadedHistory = JSON.parse(localStorage.getItem("historyStorage"));
-
+    if (!loadedHistory) {
+        return;
+    }
     // Uppdatera history array on den inte redan har samma värden
     if (loadedHistory) {
         if (JSON.stringify(history) !== JSON.stringify(loadedHistory)) {
@@ -192,9 +194,12 @@ function clearForm() {
  */
 function deleteHistory() {
     console.log("CLEAR HISTORY TRIGGERED")
-    // Radera sparad historik
+    // Radera sparad historik i localstorage och i lokal array
+    localStorage.setItem("historyStorage", "");
+    history.length = 0;
 
-    // Uppdatera history och visningen på sidan
+    // Uppdatera visningen på sidan
+    renderHistory();
 }
 
 
