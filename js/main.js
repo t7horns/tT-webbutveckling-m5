@@ -150,6 +150,13 @@ function renderHistory() {
         // Varje nytt history-kort blir ett nytt p-element via DOM
         let newHistoryCard = document.createElement("p");
 
+        // Stil via DOM för att skapa boxar till varje history-kort
+        newHistoryCard.style.width = "50%";
+        newHistoryCard.style.padding = "1em 1em";
+        newHistoryCard.style.maxWidth = "350px";
+        newHistoryCard.style.overflowWrap = "break-word";
+        newHistoryCard.style.border = "2px solid #ddd";
+
         for (let [profileKey, value] of Object.entries(profil)) {
             // Loopa genom varje key-value par i sparade profiler
             // Skapa textnod med bl.a. fullname med värdet för fullname
