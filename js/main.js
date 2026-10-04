@@ -145,6 +145,16 @@ function renderHistory() {
 
     // Skriv ut innehållet i history till DOM
 
+
+    for (let profil of history) {
+        let newHistoryCard = document.createElement("p");
+
+        let profileText = document.createTextNode(JSON.stringify(profil));
+
+        newHistoryCard.appendChild(profileText);
+        
+        historySection.appendChild(newHistoryCard);
+    }
 }
 
 
@@ -206,3 +216,4 @@ deleteHistoryButton.addEventListener("click", function(event) {
 // När sidan laddas:
 // - läs in och visa eventuell tidigare historik
 loadHistory()
+renderHistory()
