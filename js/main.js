@@ -146,27 +146,23 @@ function renderHistory() {
     historySection.innerHTML = "";
     // Skriv ut innehållet i history till DOM
 
-
     for (let profil of history) {
-        
+        // Varje nytt history-kort blir ett nytt p-element via DOM
         let newHistoryCard = document.createElement("p");
 
         for (let [profileKey, value] of Object.entries(profil)) {
+            // Loopa genom varje key-value par i sparade profiler
+            // Skapa textnod med bl.a. fullname med värdet för fullname
             let textNode = document.createTextNode(profileKey + ": " + value);
+            
+            // Läggs till i history-kortet
             newHistoryCard.appendChild(textNode);
+            newHistoryCard.appendChild(document.createElement("br"));
         }
-        
+        // History-kortet läggs till i historySection
         historySection.appendChild(newHistoryCard);
     }
-    
 
-
-        /*
-        let profileText = document.createTextNode(JSON.stringify(profil));
-
-        newHistoryCard.appendChild(profileText);
-
-        historySection.appendChild(newHistoryCard); */
 }
 
 
